@@ -69,6 +69,8 @@
     <integer name="softDropBonus">1</integer> <!-- points per dropped square -->
     <integer name="hardDropBonus">2</integer> <!-- points per dropped square -->
     
+    <float name="levelMultiplier">1.1</float> <!-- score = score * (1 + level * multiplier) -->
+    
     <integer name="shortVibeInterval">100</integer>
     
     <integer name="audio_streams">16</integer>
