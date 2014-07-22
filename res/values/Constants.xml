@@ -69,8 +69,8 @@
     <integer name="softDropBonus">1</integer> <!-- points per dropped square -->
     <integer name="hardDropBonus">2</integer> <!-- points per dropped square -->
     
-    <!-- score = score * (1 + level * multiplier) -->
-    <item type="dimen" format="float" name="scoreMultiplier">1.1</item>
+    <!-- score = score * (1 + level * multiplier / 10) -->
+    <integer name="scoreMultiplier">11</integer>
     
     <integer name="shortVibeInterval">100</integer>
     

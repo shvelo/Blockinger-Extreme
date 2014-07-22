@@ -130,7 +130,9 @@ public class GameState extends Component {
 		trippleLineScore = host.getResources().getInteger(R.integer.trippleLineScore);
 		multiTetrisScore = host.getResources().getInteger(R.integer.multiTetrisScore);
 		quadLineScore = host.getResources().getInteger(R.integer.quadLineScore);
-		scoreMultiplier = host.getResources().getDimension(R.dimen.scoreMultiplier);
+
+		scoreMultiplier = host.getResources().getInteger(R.integer.scoreMultiplier) / 10f;
+
 		hardDropBonus = host.getResources().getInteger(R.integer.hardDropBonus);
 		softDropBonus = host.getResources().getInteger(R.integer.softDropBonus);
 		softDropDistance = 0;
