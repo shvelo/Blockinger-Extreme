@@ -42,4 +42,28 @@ android {
         minSdkVersion 9
         targetSdkVersion 19
     }
+
+    signingConfigs {
+        release
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            runProguard false
+            zipAlign true
+        }
+    }
 }
+
+def props = new Properties()
+
+props.load(new FileInputStream(rootProject.file("release.properties")))
+
+android.signingConfigs.release.storeFile rootProject.file(props.keyStore)
+
+android.signingConfigs.release.storePassword props.keyStorePassword
+
+android.signingConfigs.release.keyAlias props.keyAlias
+
+android.signingConfigs.release.keyPassword props.keyAliasPassword

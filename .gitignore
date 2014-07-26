@@ -14,3 +14,4 @@ gen
 *.iml
 build.xml
 .idea
+release.properties
