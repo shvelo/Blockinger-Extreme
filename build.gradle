@@ -1,4 +1,4 @@
-apply plugin: 'android'
+apply plugin: 'com.android.application'
 
 buildscript {
     repositories {
@@ -15,6 +15,7 @@ repositories {
 
 dependencies {
     compile 'com.android.support:support-v4:20.0.+'
+    compile 'com.google.android.gms:play-services:5.0.77'
 }
 
 android {
@@ -38,7 +39,7 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion 8
+        minSdkVersion 9
         targetSdkVersion 19
     }
 }
