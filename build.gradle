@@ -47,10 +47,10 @@ android {
         release
 
         debug {
-            keyStore 'debug.keystore'
-            keyStorePassword 'blockinger'
+            storeFile file('debug.keystore')
+            storePassword 'blockinger'
             keyAlias 'blockinger-debug'
-            keyAliasPassword 'blockinger'
+            keyPassword 'blockinger'
         }
     }
 
