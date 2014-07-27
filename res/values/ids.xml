@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_id">219113346156</string>
+    <string name="achievement_fast_fingers">CgkI7KixobAGEAIQAQ</string>
+    <string name="achievement_tetris">CgkI7KixobAGEAIQAg</string>
+    <string name="achievement_arcade_dominator">CgkI7KixobAGEAIQAw</string>
+    <string name="achievement_unstoppable">CgkI7KixobAGEAIQBA</string>
+    <string name="achievement_thousand">CgkI7KixobAGEAIQBg</string>
+    <string name="achievement_millionaire">CgkI7KixobAGEAIQBQ</string>
+    <string name="achievement_bazinga">CgkI7KixobAGEAIQBw</string>
+    <string name="leaderboard_score">CgkI7KixobAGEAIQCA</string>
+    <string name="leaderboard_apm">CgkI7KixobAGEAIQCQ</string>
+</resources>

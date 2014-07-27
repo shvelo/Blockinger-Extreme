@@ -45,11 +45,24 @@ android {
 
     signingConfigs {
         release
+
+        debug {
+            keyStore 'debug.keystore'
+            keyStorePassword 'blockinger'
+            keyAlias 'blockinger-debug'
+            keyAliasPassword 'blockinger'
+        }
     }
 
     buildTypes {
         release {
             signingConfig signingConfigs.release
+            runProguard false
+            zipAlign true
+        }
+
+        debug {
+            signingConfig signingConfigs.debug
             runProguard false
             zipAlign true
         }
