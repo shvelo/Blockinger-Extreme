@@ -1,13 +1,12 @@
 package org.blockinger.extreme.activities;
 
+import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,7 +19,7 @@ import org.blockinger.extreme.R;
 import org.blockinger.extreme.components.GameState;
 import org.blockinger.extreme.components.Sound;
 
-public class MainActivity extends ListActivity {
+public class MainActivity extends Activity {
 
 	public static final int SCORE_REQUEST = 0x0;
 	
