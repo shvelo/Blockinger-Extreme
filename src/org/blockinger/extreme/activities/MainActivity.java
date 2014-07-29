@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -20,8 +19,6 @@ import android.widget.TextView;
 import org.blockinger.extreme.R;
 import org.blockinger.extreme.components.GameState;
 import org.blockinger.extreme.components.Sound;
-import org.blockinger.extreme.db.HighscoreOpenHelper;
-import org.blockinger.extreme.db.ScoreDataSource;
 
 public class MainActivity extends ListActivity {
 
@@ -36,9 +33,7 @@ public class MainActivity extends ListActivity {
 	 *  The Package Prefix is mandatory for Intent data
 	 */
 	public static final String SCORE_KEY = "org.blockinger.game.activities.score";
-	
-	public ScoreDataSource datasource;
-	private SimpleCursorAdapter adapter;
+
 	private AlertDialog.Builder startLevelDialog;
 	private AlertDialog.Builder donateDialog;
 	private int startLevel;
@@ -51,26 +46,10 @@ public class MainActivity extends ListActivity {
 		setContentView(R.layout.activity_main);
 		PreferenceManager.setDefaultValues(this, R.xml.simple_preferences, true);
 		PreferenceManager.setDefaultValues(this, R.xml.advanced_preferences, true);
-		
+
 		/* Create Music */
 		sound = new Sound(this);
 		sound.startMusic(Sound.MENU_MUSIC, 0);
-		
-		/* Database Management */
-		Cursor mc;
-	    datasource = new ScoreDataSource(this);
-	    datasource.open();
-	    mc = datasource.getCursor();
-	    // Use the SimpleCursorAdapter to show the
-	    // elements in a ListView
-	    adapter = new SimpleCursorAdapter(
-            this,
-	        R.layout.blockinger_list_item,
-	        mc,
-	        new String[] {HighscoreOpenHelper.COLUMN_SCORE, HighscoreOpenHelper.COLUMN_PLAYERNAME},
-	        new int[] {R.id.text1, R.id.text2},
-	        SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
-	    setListAdapter(adapter);
 	    
 	    /* Create Startlevel Dialog */
 	    startLevel = 0;
@@ -144,46 +123,22 @@ public class MainActivity extends ListActivity {
 				return super.onOptionsItemSelected(item);
 		}
 	}
-
-    private void persistNickname(){
-        TextView nickNameEditText = (TextView) findViewById(R.id.nicknameEditView);
-        if(null != nickNameEditText){
-            PreferenceManager.getDefaultSharedPreferences(this)
-                    .edit().putString(PLAYERNAME_KEY, nickNameEditText.getText().toString()).commit();
-        }
-    }
-
-    private void restoreNickname(){
-        TextView nickNameEditText = (TextView) findViewById(R.id.nicknameEditView);
-        if(null != nickNameEditText){
-            nickNameEditText.setText(PreferenceManager.getDefaultSharedPreferences(this)
-                    .getString(PLAYERNAME_KEY, null));
-        }
-    }
 	
 	public void start() {
-        persistNickname();
 		Intent intent = new Intent(this, GameActivity.class);
 		Bundle b = new Bundle();
-		b.putInt("mode", GameActivity.NEW_GAME); //Your id
-		b.putInt("level", startLevel); //Your id
-		b.putString("playername", ((TextView)findViewById(R.id.nicknameEditView)).getText().toString()); //Your id
-		intent.putExtras(b); //Put your id to your next Intent
+		b.putInt("mode", GameActivity.NEW_GAME);
+		b.putInt("level", startLevel);
+		intent.putExtras(b);
 		startActivityForResult(intent,SCORE_REQUEST);
 	}
-	
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if(requestCode != SCORE_REQUEST)
 			return;
 		if(resultCode != RESULT_OK)
 			return;
-
-		String playerName = data.getStringExtra(PLAYERNAME_KEY);
-		long score = data.getLongExtra(SCORE_KEY,0);
-
-	    datasource.open();
-	    datasource.createScore(score, playerName);
 	}
 
 
@@ -215,12 +170,10 @@ public class MainActivity extends ListActivity {
     }
 
     public void onClickResume(View view) {
-        persistNickname();
 		Intent intent = new Intent(this, GameActivity.class);
 		Bundle b = new Bundle();
-		b.putInt("mode", GameActivity.RESUME_GAME); //Your id
-		b.putString("playername", ((TextView)findViewById(R.id.nicknameEditView)).getText().toString()); //Your id
-		intent.putExtras(b); //Put your id to your next Intent
+		b.putInt("mode", GameActivity.RESUME_GAME);
+		intent.putExtras(b);
 		startActivityForResult(intent,SCORE_REQUEST);
     }
     
@@ -229,33 +182,27 @@ public class MainActivity extends ListActivity {
     	super.onPause();
     	sound.pause();
     	sound.setInactive(true);
-    };
+    }
     
     @Override
     protected void onStop() {
     	super.onStop();
     	sound.pause();
     	sound.setInactive(true);
-    	datasource.close();
-    };
+    }
     
     @Override
     protected void onDestroy() {
     	super.onDestroy();
     	sound.release();
     	sound = null;
-    	datasource.close();
-    };
+    }
     
     @Override
     protected void onResume() {
     	super.onResume();
-        restoreNickname();
     	sound.setInactive(false);
     	sound.resume();
-    	datasource.open();
-	    Cursor cursor = datasource.getCursor();
-	    adapter.changeCursor(cursor);
 	    
 	    if(!GameState.isFinished()) {
 	    	findViewById(R.id.resumeButton).setEnabled(true);
@@ -264,6 +211,6 @@ public class MainActivity extends ListActivity {
 	    	findViewById(R.id.resumeButton).setEnabled(false);
 	    	((Button)findViewById(R.id.resumeButton)).setTextColor(getResources().getColor(R.color.holo_grey));
 	    }
-    };
+    }
 
 }
