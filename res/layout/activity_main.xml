@@ -11,11 +11,34 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
 
+        <!-- sign-in button -->
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/sign_in_button"
+            android:layout_weight="1"
+            android:layout_width="fill_parent"
+            android:layout_height="70dp" />
+
+        <!-- sign-out button -->
+        <Button
+            android:id="@+id/sign_out_button"
+            android:layout_width="fill_parent"
+            android:layout_height="70dp"
+            android:text="Sign Out"
+            android:layout_weight="1"
+            android:visibility="gone" />
+
+
+        <View
+            android:id="@+id/spacer3"
+            android:layout_width="fill_parent"
+            android:layout_height="10dp"
+            android:layout_weight="0.25" />
+
         <Button
             android:id="@+id/resumeButton"
             style="@android:style/Widget.ImageWell"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="70dp"
             android:layout_gravity="center|top"
             android:layout_weight="1"
             android:enabled="false"
@@ -35,7 +58,7 @@
             android:id="@+id/restartButton"
             style="@android:style/Widget.ImageWell"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="70dp"
             android:layout_weight="1"
             android:onClick="onClickStart"
             android:text="@string/startButtonString"

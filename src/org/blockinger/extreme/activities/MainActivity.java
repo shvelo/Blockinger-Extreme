@@ -19,24 +19,15 @@ import org.blockinger.extreme.R;
 import org.blockinger.extreme.components.GameState;
 import org.blockinger.extreme.components.Sound;
 
-public class MainActivity extends Activity {
+import com.google.android.gms.common.*;
 
+public class MainActivity extends Activity {
 	public static final int SCORE_REQUEST = 0x0;
 	
-	/** This key is used to access the player name, which is returned as an Intent from the gameactivity upon completion (gameover).
-	 *  The Package Prefix is mandatory for Intent data
-	 */
-	public static final String PLAYERNAME_KEY = "org.blockinger.game.activities.playername";
-	
-	/** This key is used to access the player name, which is returned as an Intent from the gameactivity upon completion (gameover).
-	 *  The Package Prefix is mandatory for Intent data
-	 */
-	public static final String SCORE_KEY = "org.blockinger.game.activities.score";
-
 	private AlertDialog.Builder startLevelDialog;
 	private AlertDialog.Builder donateDialog;
 	private int startLevel;
-    private TextView leveldialogtext;
+	private TextView leveldialogtext;
 	private Sound sound;
 	
 	@Override
@@ -49,10 +40,10 @@ public class MainActivity extends Activity {
 		/* Create Music */
 		sound = new Sound(this);
 		sound.startMusic(Sound.MENU_MUSIC, 0);
-	    
-	    /* Create Startlevel Dialog */
-	    startLevel = 0;
-	    startLevelDialog = new AlertDialog.Builder(this);
+		
+		/* Create Startlevel Dialog */
+		startLevel = 0;
+		startLevelDialog = new AlertDialog.Builder(this);
 		startLevelDialog.setTitle(R.string.startLevelDialogTitle);
 		startLevelDialog.setCancelable(false);
 		startLevelDialog.setNegativeButton(R.string.startLevelDialogCancel, new DialogInterface.OnClickListener() {
@@ -61,24 +52,26 @@ public class MainActivity extends Activity {
 				dialog.dismiss();
 			}
 		});
+
 		startLevelDialog.setPositiveButton(R.string.startLevelDialogStart, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				MainActivity.this.start();
 			}
 		});
-	    
+		
 		/* Create Donate Dialog */
-	    donateDialog = new AlertDialog.Builder(this);
-	    donateDialog.setTitle(R.string.pref_donate_title);
-	    donateDialog.setMessage(R.string.pref_donate_summary);
-	    donateDialog.setNegativeButton(R.string.startLevelDialogCancel, new DialogInterface.OnClickListener() {
+		donateDialog = new AlertDialog.Builder(this);
+		donateDialog.setTitle(R.string.pref_donate_title);
+		donateDialog.setMessage(R.string.pref_donate_summary);
+		donateDialog.setNegativeButton(R.string.startLevelDialogCancel, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				dialog.dismiss();
 			}
 		});
-	    donateDialog.setPositiveButton(R.string.donate_button, new DialogInterface.OnClickListener() {
+
+		donateDialog.setPositiveButton(R.string.donate_button, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				String url = getResources().getString(R.string.donation_url);
@@ -87,6 +80,9 @@ public class MainActivity extends Activity {
 				startActivity(i);
 			}
 		});
+
+		SignInButton signInButton = (SignInButton) findViewById(R.id.sign_in_button);
+		signInButton.setStyle(SignInButton.SIZE_WIDE, SignInButton.COLOR_LIGHT);
 	}
 
 	@Override
@@ -100,26 +96,26 @@ public class MainActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 			case R.id.action_settings:
-				Intent intent = new Intent(this, SettingsActivity.class);
-				startActivity(intent);
-				return true;
+			Intent intent = new Intent(this, SettingsActivity.class);
+			startActivity(intent);
+			return true;
 			case R.id.action_about:
-				Intent intent1 = new Intent(this, AboutActivity.class);
-				startActivity(intent1);
-				return true;
+			Intent intent1 = new Intent(this, AboutActivity.class);
+			startActivity(intent1);
+			return true;
 			case R.id.action_donate:
-				donateDialog.show();
-				return true;
+			donateDialog.show();
+			return true;
 			case R.id.action_help:
-				Intent intent2 = new Intent(this, HelpActivity.class);
-				startActivity(intent2);
-				return true;
+			Intent intent2 = new Intent(this, HelpActivity.class);
+			startActivity(intent2);
+			return true;
 			case R.id.action_exit:
-			    GameState.destroy();
-			    MainActivity.this.finish();
-				return true;
+			GameState.destroy();
+			MainActivity.this.finish();
+			return true;
 			default:
-				return super.onOptionsItemSelected(item);
+			return super.onOptionsItemSelected(item);
 		}
 	}
 	
@@ -141,75 +137,73 @@ public class MainActivity extends Activity {
 	}
 
 
-    public void onClickStart(View view) {
-        View dialogView = getLayoutInflater().inflate(R.layout.seek_bar_dialog, null);
+	public void onClickStart(View view) {
+		View dialogView = getLayoutInflater().inflate(R.layout.seek_bar_dialog, null);
 		leveldialogtext = ((TextView) dialogView.findViewById(R.id.leveldialogleveldisplay));
-        SeekBar leveldialogBar = ((SeekBar) dialogView.findViewById(R.id.levelseekbar));
+		SeekBar leveldialogBar = ((SeekBar) dialogView.findViewById(R.id.levelseekbar));
 		leveldialogBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+			@Override
+			public void onProgressChanged(SeekBar arg0, int arg1, boolean arg2) {
+				leveldialogtext.setText("" + arg1);
+				startLevel = arg1;
+			}
 
-            @Override
-            public void onProgressChanged(SeekBar arg0, int arg1, boolean arg2) {
-                leveldialogtext.setText("" + arg1);
-                startLevel = arg1;
-            }
+			@Override
+			public void onStartTrackingTouch(SeekBar arg0) {
+			}
 
-            @Override
-            public void onStartTrackingTouch(SeekBar arg0) {
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar arg0) {
-            }
-
-        });
+			@Override
+			public void onStopTrackingTouch(SeekBar arg0) {
+			}
+		});
 		leveldialogBar.setProgress(startLevel);
 		leveldialogtext.setText("" + startLevel);
 		startLevelDialog.setView(dialogView);
 		startLevelDialog.show();
-    }
+	}
 
-    public void onClickResume(View view) {
+	public void onClickResume(View view) {
 		Intent intent = new Intent(this, GameActivity.class);
 		Bundle b = new Bundle();
 		b.putInt("mode", GameActivity.RESUME_GAME);
 		intent.putExtras(b);
 		startActivityForResult(intent,SCORE_REQUEST);
-    }
-    
-    @Override
-    protected void onPause() {
-    	super.onPause();
-    	sound.pause();
-    	sound.setInactive(true);
-    }
-    
-    @Override
-    protected void onStop() {
-    	super.onStop();
-    	sound.pause();
-    	sound.setInactive(true);
-    }
-    
-    @Override
-    protected void onDestroy() {
-    	super.onDestroy();
-    	sound.release();
-    	sound = null;
-    }
-    
-    @Override
-    protected void onResume() {
-    	super.onResume();
-    	sound.setInactive(false);
-    	sound.resume();
-	    
-	    if(!GameState.isFinished()) {
-	    	findViewById(R.id.resumeButton).setEnabled(true);
-	    	((Button)findViewById(R.id.resumeButton)).setTextColor(getResources().getColor(R.color.square_error));
-	    } else {
-	    	findViewById(R.id.resumeButton).setEnabled(false);
-	    	((Button)findViewById(R.id.resumeButton)).setTextColor(getResources().getColor(R.color.holo_grey));
-	    }
-    }
+	}
+	
+	@Override
+	protected void onPause() {
+		super.onPause();
+		sound.pause();
+		sound.setInactive(true);
+	}
+	
+	@Override
+	protected void onStop() {
+		super.onStop();
+		sound.pause();
+		sound.setInactive(true);
+	}
+	
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		sound.release();
+		sound = null;
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		sound.setInactive(false);
+		sound.resume();
+		
+		if(!GameState.isFinished()) {
+			findViewById(R.id.resumeButton).setEnabled(true);
+			((Button)findViewById(R.id.resumeButton)).setTextColor(getResources().getColor(R.color.square_error));
+		} else {
+			findViewById(R.id.resumeButton).setEnabled(false);
+			((Button)findViewById(R.id.resumeButton)).setTextColor(getResources().getColor(R.color.holo_grey));
+		}
+	}
 
 }

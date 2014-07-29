@@ -223,8 +223,6 @@ public class GameActivity extends FragmentActivity {
 			playerName = getResources().getString(R.string.anonymous);//"Anonymous";
 		
 		Intent data = new Intent();
-		data.putExtra(MainActivity.PLAYERNAME_KEY, playerName);
-		data.putExtra(MainActivity.SCORE_KEY, score);
 		setResult(MainActivity.RESULT_OK, data);
 		
 		finish();
