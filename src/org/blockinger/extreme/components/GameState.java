@@ -253,7 +253,6 @@ public class GameState extends Component {
 		if(addScore != 0)
 			popupString = "+"+addScore;
 		addScore *= scoreMultiplier * level;
-		// host.saveScore(score); is not supported by ScoreDataSource
 	}
 
 	public void pieceTransition(boolean eventVibrationEnabled) {
