@@ -198,11 +198,9 @@ public class MainActivity extends Activity {
 		sound.resume();
 		
 		if(!GameState.isFinished()) {
-			findViewById(R.id.resumeButton).setEnabled(true);
-			((Button)findViewById(R.id.resumeButton)).setTextColor(getResources().getColor(R.color.square_error));
+            findViewById(R.id.resumeButton).setVisibility(View.VISIBLE);
 		} else {
-			findViewById(R.id.resumeButton).setEnabled(false);
-			((Button)findViewById(R.id.resumeButton)).setTextColor(getResources().getColor(R.color.holo_grey));
+			findViewById(R.id.resumeButton).setVisibility(View.GONE);
 		}
 	}
 

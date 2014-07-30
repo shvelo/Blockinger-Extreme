@@ -9,69 +9,62 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity" >
+    tools:context=".MainActivity">
 
-        <!-- sign-in button -->
-        <com.google.android.gms.common.SignInButton
-            android:id="@+id/sign_in_button"
-            android:layout_weight="1"
-            android:layout_width="fill_parent"
-            android:layout_height="70dp" />
+    <!-- sign-in button -->
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/sign_in_button"
+        android:layout_width="fill_parent"
+        android:layout_height="70dp"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="1" />
 
-        <!-- sign-out button -->
-        <Button
-            android:id="@+id/sign_out_button"
-            android:layout_width="fill_parent"
-            android:layout_height="70dp"
-            android:text="Sign Out"
-            android:layout_weight="1"
-            android:visibility="gone" />
+    <!-- sign-out button -->
+    <Button
+        android:id="@+id/sign_out_button"
+        android:layout_width="fill_parent"
+        android:layout_height="70dp"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="1"
+        android:text="Sign Out"
+        android:visibility="gone" />
 
 
-        <View
-            android:id="@+id/spacer3"
-            android:layout_width="fill_parent"
-            android:layout_height="10dp"
-            android:layout_weight="0.25" />
+    <Button
+        android:id="@+id/resumeButton"
+        style="@android:style/Widget.ImageWell"
+        android:layout_width="fill_parent"
+        android:layout_height="70dp"
+        android:layout_gravity="center|top"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="1"
+        android:enabled="true"
+        android:onClick="onClickResume"
+        android:text="@string/resumeButtonString"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/square_error"
+        android:textColorHint="@color/holo_grey"
+        android:visibility="gone" />
 
-        <Button
-            android:id="@+id/resumeButton"
-            style="@android:style/Widget.ImageWell"
-            android:layout_width="fill_parent"
-            android:layout_height="70dp"
-            android:layout_gravity="center|top"
-            android:layout_weight="1"
-            android:enabled="false"
-            android:onClick="onClickResume"
-            android:text="@string/resumeButtonString"
-            android:textColor="@color/holo_grey"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColorHint="@color/holo_grey" />
+    <Button
+        android:id="@+id/restartButton"
+        style="@android:style/Widget.ImageWell"
+        android:layout_width="fill_parent"
+        android:layout_height="70dp"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="1"
+        android:onClick="onClickStart"
+        android:text="@string/startButtonString"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/square_error"
+        android:textColorHint="@color/holo_grey" />
 
-        <View
-            android:id="@+id/spacer2"
-            android:layout_width="fill_parent"
-            android:layout_height="10dp"
-            android:layout_weight="0.25" />
+    <TextView
+        android:id="@+id/TextView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:text="@string/musicAuthorNote"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
-        <Button
-            android:id="@+id/restartButton"
-            style="@android:style/Widget.ImageWell"
-            android:layout_width="fill_parent"
-            android:layout_height="70dp"
-            android:layout_weight="1"
-            android:onClick="onClickStart"
-            android:text="@string/startButtonString"
-            android:textColor="@color/square_error"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColorHint="@color/holo_grey" />
-
-        <TextView
-            android:id="@+id/TextView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/musicAuthorNote"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:layout_gravity="bottom|right" />
-
-    </LinearLayout>
+</LinearLayout>
