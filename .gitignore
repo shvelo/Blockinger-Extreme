@@ -1,17 +1,11 @@
 bin
 build
-gradle
-gradlew
-gradlew.bat
 .gradle
 .project
 .settings
 local.properties
 .classpath
-project.properties
-proguard-project.txt
 gen
 *.iml
-build.xml
 .idea
 release.properties
