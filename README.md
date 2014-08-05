@@ -1,4 +1,4 @@
-Blockinger Extreme is a fork of Blockinger.
+Blockinger Extreme is a fork of [Blockinger](https://github.com/vocollapse/Blockinger).
 
 Music by Pornophonique.  
 **Music License**: Creative Commons BY-NC-SA 3.0 DE  
